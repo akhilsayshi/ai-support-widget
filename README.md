@@ -1,17 +1,32 @@
-# AI Support Widget Tutorial
+# 🌙 AI Support Widget with Dark Mode Toggle
 
-Learn how to build and deploy your own AI-powered customer support widget for any website. This tutorial walks you through creating an intelligent chat widget that can answer questions using FAQ matching and AI-powered responses.
+A modern, intelligent customer support widget featuring a beautiful dark mode toggle. Perfect for any website looking to provide AI-powered customer support with style!
 
-![Tutorial](https://img.shields.io/badge/tutorial-step--by--step-blue) ![Difficulty](https://img.shields.io/badge/difficulty-beginner-green) ![License](https://img.shields.io/badge/license-MIT-green)
+![Tutorial](https://img.shields.io/badge/tutorial-step--by--step-blue) ![Difficulty](https://img.shields.io/badge/difficulty-beginner-green) ![License](https://img.shields.io/badge/license-MIT-green) ![Dark Mode](https://img.shields.io/badge/dark--mode-✨-purple) ![React](https://img.shields.io/badge/react-18.2.0-blue) ![FastAPI](https://img.shields.io/badge/fastapi-latest-green)
 
-## 🎯 What You'll Build
+## ✨ Key Features
 
-- **Smart Chat Widget**: Embeddable widget for any website
-- **FAQ System**: Instant responses for common questions
-- **AI Integration**: OpenAI GPT for complex queries (optional)
-- **Customizable UI**: Match your website's design
-- **Easy Deployment**: Works on any web server
-- **No Database Required**: Runs with just files and API keys
+- **🌙 Dark Mode Toggle**: Beautiful sun/moon button in top-right corner with smooth transitions
+- **💬 Smart Chat Widget**: Embeddable widget for any website
+- **🎨 Dual Themes**: Complete light/dark mode support with persistent preferences
+- **📱 Responsive Design**: Perfect on desktop, tablet, and mobile
+- **🔧 FAQ System**: Instant responses for common questions
+- **🤖 AI Integration**: OpenAI GPT for complex queries (optional)
+- **🎯 Customizable UI**: Match your website's design perfectly
+- **🚀 Easy Deployment**: Works on any web server
+- **💾 Persistent Preferences**: User's theme choice is remembered
+- **🆔 No Database Required**: Runs with just files and API keys
+
+## 🌟 Dark Mode Implementation
+
+The standout feature of this widget is its seamless dark mode functionality:
+
+- **Toggle Button**: Elegant sun/moon icon in the top-right corner
+- **Smart Icons**: Sun appears in dark mode (switch to light), moon appears in light mode (switch to dark)
+- **Smooth Transitions**: All elements animate beautifully between themes
+- **Complete Coverage**: Entire interface adapts including chat bubbles, input areas, and backgrounds
+- **Accessibility**: Proper contrast ratios for both themes
+- **Mobile Optimized**: Responsive positioning and sizing
 
 ## 📁 Project Structure
 
