@@ -1,0 +1,9 @@
+# Essential dependencies only
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+# Optional AI dependencies (install only if needed)
+# openai
+# pinecone-client

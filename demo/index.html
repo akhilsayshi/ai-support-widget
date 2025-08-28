@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Support Widget - Tutorial Demo</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn how to build your own AI-powered customer support widget. Complete tutorial with working demo and source code.">
+    <meta name="keywords" content="AI tutorial, chat widget tutorial, customer support, web development, JavaScript">
+    <meta name="author" content="AI Support Widget Tutorial">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ai-support-widget.com/">
+    <meta property="og:title" content="AI Support Widget - Intelligent Customer Support">
+    <meta property="og:description" content="Experience our AI-powered customer support widget in action. Transform your customer service today.">
+    <meta property="og:image" content="https://ai-support-widget.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ai-support-widget.com/">
+    <meta property="twitter:title" content="AI Support Widget - Intelligent Customer Support">
+    <meta property="twitter:description" content="Experience our AI-powered customer support widget in action. Transform your customer service today.">
+    <meta property="twitter:image" content="https://ai-support-widget.com/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'slide-in-right': 'slideInRight 0.6s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        AI
+                    </div>
+                    <div>
+                                            <h1 class="text-xl font-bold text-gray-900">AI Support Widget</h1>
+                    <p class="text-sm text-gray-500">Tutorial & Demo</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#tutorial" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Tutorial</a>
+                    <a href="#demo" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Demo</a>
+                    <a href="#features" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Features</a>
+                    <a href="#customize" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Customize</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="openWidget()" class="text-gray-600 hover:text-primary-600 font-medium transition-colors">Try Widget</button>
+                    <button onclick="scrollToTutorial()" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                        View Tutorial
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in-up">
+                    <h2 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Build Your Own
+                        <span class="block text-yellow-300">AI Support Widget</span>
+                    </h2>
+                    <p class="text-xl mb-8 text-blue-100 leading-relaxed">
+                        Learn how to create and deploy your own AI-powered support widget. Complete tutorial with source code, customization options, and zero subscription fees.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openWidget()" class="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                            🎯 Try Live Demo
+                        </button>
+                        <button onclick="scrollToTutorial()" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary-600 transition-colors">
+                            📚 Start Tutorial
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="animate-slide-in-right">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8 text-gray-900">
+                        <div class="flex items-center mb-6">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <span class="text-white font-bold">✓</span>
+                            </div>
+                            <span class="font-semibold">Live Widget Preview</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Customer:</p>
+                                <p>"What are your pricing plans?"</p>
+                            </div>
+                            <div class="bg-primary-50 p-4 rounded-lg">
+                                <p class="text-sm text-primary-600 mb-2">AI Assistant:</p>
+                                <p>"Our pricing starts at $29/month for the basic plan. We offer three tiers with a 14-day free trial. Would you like me to show you the details?"</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <p class="text-sm text-gray-500">Click the chat button to interact! →</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Section -->
+    <section id="tutorial" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold mb-4">Simple 4-Step Tutorial</h3>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Get your AI support widget running in under 10 minutes
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-blue-600">1</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Download & Setup</h4>
+                    <p class="text-gray-600">Download the files and install Python dependencies. Takes 2 minutes.</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-green-600">2</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Customize FAQs</h4>
+                    <p class="text-gray-600">Edit the FAQ file to add your own questions and answers.</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-yellow-600">3</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Start Server</h4>
+                    <p class="text-gray-600">Run one command to start your AI support API server.</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-purple-600">4</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Embed Widget</h4>
+                    <p class="text-gray-600">Add one line of code to your website and you're done!</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-gray-50 rounded-xl p-8">
+                <h4 class="text-2xl font-bold mb-4 text-center">Quick Start Commands</h4>
+                <div class="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm">
+                    <div class="mb-2"># 1. Install dependencies</div>
+                    <div class="mb-2">pip install -r requirements.txt</div>
+                    <div class="mb-4"></div>
+                    <div class="mb-2"># 2. Start the server</div>
+                    <div class="mb-2">python main.py</div>
+                    <div class="mb-4"></div>
+                    <div class="mb-2"># 3. Add to your HTML</div>
+                    <div>&lt;script src="widget/public/embed.js"&gt;&lt;/script&gt;</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold mb-4">Powerful Features</h3>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Everything you need to provide exceptional customer support with AI technology
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🤖</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">AI-Powered Responses</h4>
+                    <p class="text-gray-600">Intelligent responses using GPT-4 and custom knowledge base for accurate, contextual support.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Instant Setup</h4>
+                    <p class="text-gray-600">Embed our widget with just a few lines of code. No complex installation required.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🎨</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Fully Customizable</h4>
+                    <p class="text-gray-600">Match your brand with custom colors, themes, and messaging options.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Analytics Dashboard</h4>
+                    <p class="text-gray-600">Track conversations, response quality, and customer satisfaction metrics.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔗</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Seamless Integration</h4>
+                    <p class="text-gray-600">Works with Salesforce, HubSpot, Zendesk, and custom CRM systems.</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔒</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3">Enterprise Security</h4>
+                    <p class="text-gray-600">SOC 2 certified, GDPR compliant, with end-to-end encryption.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold mb-4">See It In Action</h3>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Experience the power of AI-driven customer support. Try asking questions about our features, pricing, or integration options.
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h4 class="text-2xl font-bold mb-6">Interactive Demo</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+                                <div>
+                                    <h5 class="font-semibold">Click the chat button</h5>
+                                    <p class="text-gray-600">Look for the blue chat icon in the bottom right corner</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+                                <div>
+                                    <h5 class="font-semibold">Ask questions</h5>
+                                    <p class="text-gray-600">Try asking about pricing, features, or how to get started</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+                                <div>
+                                    <h5 class="font-semibold">Get instant responses</h5>
+                                    <p class="text-gray-600">Experience AI-powered support in real-time</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h5 class="font-semibold mb-3">Try these sample questions:</h5>
+                            <div class="space-y-2">
+                                <button onclick="askQuestion('What are your pricing plans?')" class="block w-full text-left px-4 py-2 bg-gray-50 hover:bg-primary-50 rounded-lg text-sm transition-colors">
+                                    "What are your pricing plans?"
+                                </button>
+                                <button onclick="askQuestion('How do I integrate this widget?')" class="block w-full text-left px-4 py-2 bg-gray-50 hover:bg-primary-50 rounded-lg text-sm transition-colors">
+                                    "How do I integrate this widget?"
+                                </button>
+                                <button onclick="askQuestion('Do you offer support?')" class="block w-full text-left px-4 py-2 bg-gray-50 hover:bg-primary-50 rounded-lg text-sm transition-colors">
+                                    "Do you offer support?"
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="animate-bounce-slow">
+                        <div class="bg-gradient-to-br from-primary-500 to-purple-600 rounded-2xl p-8 text-white text-center">
+                            <div class="text-6xl mb-4">💬</div>
+                            <h4 class="text-2xl font-bold mb-4">Widget Active</h4>
+                            <p class="text-primary-100">The support widget is ready to assist you. Click the chat button to start a conversation!</p>
+                            <div class="mt-6">
+                                <button onclick="openWidget()" class="bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                                    Open Chat Widget
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customization Section -->
+    <section id="customize" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold mb-4">Easy Customization</h3>
+                <p class="text-xl text-gray-600">Make the widget match your brand and needs perfectly</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h4 class="text-2xl font-bold mb-6">Customize Your Widget</h4>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">1</div>
+                            <div>
+                                <h5 class="font-semibold mb-2">Edit FAQ Responses</h5>
+                                <p class="text-gray-600">Modify <code class="bg-gray-100 px-2 py-1 rounded">backend/faq.py</code> to add your own questions and answers.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">2</div>
+                            <div>
+                                <h5 class="font-semibold mb-2">Style & Colors</h5>
+                                <p class="text-gray-600">Change colors, position, and appearance using simple configuration options.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">3</div>
+                            <div>
+                                <h5 class="font-semibold mb-2">Add AI Power</h5>
+                                <p class="text-gray-600">Optionally add OpenAI integration for intelligent responses to complex questions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-900 rounded-xl p-6 text-green-400 font-mono text-sm">
+                    <div class="mb-4 text-white font-bold">Configuration Example:</div>
+                    <div class="space-y-1">
+                        <div>&lt;script src="embed.js" data-widget-config='{</div>
+                        <div class="ml-4">"apiUrl": "http://localhost:8000",</div>
+                        <div class="ml-4">"primaryColor": "#your-brand-color",</div>
+                        <div class="ml-4">"position": "bottom-right",</div>
+                        <div class="ml-4">"greetingMessage": "How can we help?",</div>
+                        <div class="ml-4">"title": "Support Chat"</div>
+                        <div>}'&gt;&lt;/script&gt;</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 border border-gray-200 rounded-xl">
+                    <div class="text-3xl mb-4">🎨</div>
+                    <h4 class="text-xl font-semibold mb-3">Brand Colors</h4>
+                    <p class="text-gray-600">Match your website's color scheme</p>
+                </div>
+                
+                <div class="text-center p-6 border border-gray-200 rounded-xl">
+                    <div class="text-3xl mb-4">📱</div>
+                    <h4 class="text-xl font-semibold mb-3">Responsive</h4>
+                    <p class="text-gray-600">Works perfectly on mobile and desktop</p>
+                </div>
+                
+                <div class="text-center p-6 border border-gray-200 rounded-xl">
+                    <div class="text-3xl mb-4">💬</div>
+                    <h4 class="text-xl font-semibold mb-3">Your Content</h4>
+                    <p class="text-gray-600">Add your own FAQ responses and messages</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold">
+                            AI
+                        </div>
+                        <span class="text-xl font-bold">AI Support Widget Tutorial</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Learn to build your own AI-powered customer support widget. Free, open source, and completely customizable.</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h6 class="font-semibold mb-2">Quick Start:</h6>
+                        <code class="text-green-400 text-sm">
+                            pip install -r requirements.txt<br>
+                            python main.py
+                        </code>
+                    </div>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4">Tutorial Sections</h5>
+                    <div class="space-y-3">
+                        <button onclick="scrollToSection('tutorial')" class="block text-left text-gray-400 hover:text-white transition-colors">
+                            📚 Getting Started Guide
+                        </button>
+                        <button onclick="scrollToSection('features')" class="block text-left text-gray-400 hover:text-white transition-colors">
+                            ⚡ Features Overview
+                        </button>
+                        <button onclick="scrollToSection('demo')" class="block text-left text-gray-400 hover:text-white transition-colors">
+                            🎯 Interactive Demo
+                        </button>
+                        <button onclick="scrollToSection('customize')" class="block text-left text-gray-400 hover:text-white transition-colors">
+                            🎨 Customization Guide
+                        </button>
+                        <button onclick="openWidget()" class="block text-left text-gray-400 hover:text-white transition-colors">
+                            💬 Try the Widget Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>AI Support Widget Tutorial - Free & Open Source</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Support Widget Embed -->
+    <script src="../widget/public/embed.js" data-widget-config='{
+        "apiUrl": "http://localhost:8000",
+        "theme": "light",
+        "primaryColor": "#3B82F6",
+        "position": "bottom-right",
+        "greetingMessage": "Hi! I'm here to help with any questions about our AI support widget. Ask me about features, pricing, or how to get started!",
+        "placeholderText": "Ask about features, pricing, demo...",
+        "showAvatar": true,
+        "title": "AI Support Demo"
+    }'></script>
+
+    <script>
+        // Helper functions for demo interaction
+        function openWidget() {
+            if (window.AISupportWidget) {
+                window.AISupportWidget.open();
+            } else {
+                alert('Widget is loading... Please try again in a moment.');
+            }
+        }
+        
+        function askQuestion(question) {
+            if (window.AISupportWidget) {
+                window.AISupportWidget.open();
+                setTimeout(() => {
+                    window.AISupportWidget.sendMessage(question);
+                }, 500);
+            } else {
+                alert('Widget is loading... Please try again in a moment.');
+            }
+        }
+        
+        function scrollToTutorial() {
+            document.getElementById('tutorial').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add fade-in animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-slide-in-right');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

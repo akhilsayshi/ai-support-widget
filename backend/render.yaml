@@ -1,0 +1,52 @@
+# Render.com deployment configuration
+# Easy deploy to Render platform
+
+services:
+  - type: web
+    name: ai-support-widget-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    
+    # Environment variables (set these in Render dashboard)
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OPENAI_API_KEY
+        sync: false  # Set this as a secret in Render dashboard
+      - key: PINECONE_API_KEY
+        sync: false  # Set this as a secret in Render dashboard
+      - key: PINECONE_ENVIRONMENT
+        value: us-west1-gcp
+      - key: PINECONE_INDEX_NAME
+        value: support-knowledge
+      - key: ENVIRONMENT
+        value: production
+        
+    # Auto-deploy from git
+    autoDeploy: true
+    
+    # Scaling configuration
+    scaling:
+      minInstances: 1
+      maxInstances: 10
+      targetCPUPercent: 70
+      targetMemoryPercent: 80
+    
+    # Resource limits
+    plan: starter  # Change to 'standard' or 'pro' for production
+    
+    # Health check configuration
+    healthCheck:
+      path: /health
+      intervalSeconds: 30
+      timeoutSeconds: 10
+      unhealthyThreshold: 3
+      healthyThreshold: 2
+    
+    # Disk configuration (if needed for file storage)
+    disk:
+      name: api-storage
+      mountPath: /data
+      sizeGB: 1
