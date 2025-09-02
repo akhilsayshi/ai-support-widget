@@ -42,15 +42,19 @@ const ChatWindow = ({ config, onClose }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${config.apiUrl}/chat`, {
+      const response = await fetch(`${config.apiUrl}/chat/message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           message: messageText,
-          session_id: sessionId.current,
-          user_id: getUserId()
+          sessionId: sessionId.current,
+          context: {
+            page: window.location.pathname,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer
+          }
         })
       });
 
@@ -63,11 +67,12 @@ const ChatWindow = ({ config, onClose }) => {
       // Add bot response
       const botMessage = {
         id: messages.length + 2,
-        text: data.response,
+        text: data.data.response,
         isUser: false,
-        timestamp: new Date(),
-        type: data.type || 'bot',
-        confidence: data.confidence
+        timestamp: new Date(data.data.timestamp),
+        type: 'bot',
+        model: data.data.model,
+        usage: data.data.usage
       };
 
       setMessages(prev => [...prev, botMessage]);

@@ -6,7 +6,7 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [config, setConfig] = useState({
-    apiUrl: 'http://localhost:8000',
+    apiUrl: 'http://localhost:3001/api',
     theme: 'light',
     primaryColor: '#3B82F6',
     position: 'bottom-right',

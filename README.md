@@ -1,19 +1,63 @@
 # AI Support Widget
 
-A modern, embeddable customer support widget with intelligent responses and dark mode support.
+A modern, full-stack customer support widget with intelligent AI responses, built with React frontend and Node.js backend.
 
-## Features
+## 🚀 Features
 
+### Frontend (React + Vite)
 - **Dark Mode Toggle**: Complete light/dark theme support with persistent preferences
 - **Smart Chat Widget**: Embeddable widget for any website
-- **FAQ System**: Pattern-based responses for common questions
-- **AI Integration**: OpenAI GPT integration for complex queries (optional)
 - **Responsive Design**: Works on desktop, tablet, and mobile
 - **Easy Integration**: Single script tag deployment
+- **Modern UI**: Sleek, professional design inspired by Stripe/Vercel
 
-## Quick Start
+### Backend (Node.js + Express)
+- **REST API**: Comprehensive REST API with Express.js
+- **AI Integration**: OpenAI GPT integration for intelligent responses
+- **Database**: MongoDB with Mongoose ODM for conversation storage
+- **Security**: Rate limiting, CORS protection, input validation
+- **Logging**: Winston-based logging with file rotation
+- **Health Checks**: Kubernetes-ready health and readiness probes
+- **Docker Support**: Complete Docker containerization
 
-### 🔧 Environment Setup
+## 🛠 Tech Stack
+
+### Frontend
+- **React 18** - Modern UI library
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **JavaScript ES6+** - Modern JavaScript features
+
+### Backend
+- **Node.js 18+** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **OpenAI API** - AI language model integration
+- **Winston** - Logging library
+- **Docker** - Containerization
+
+## 🚀 Quick Start
+
+### Option 1: Node.js Backend (Recommended)
+
+1. **Start the Backend**:
+   ```bash
+   cd backend-nodejs
+   npm install
+   cp env.example .env
+   # Edit .env with your API keys
+   npm run dev
+   ```
+
+2. **Start the Frontend**:
+   ```bash
+   cd widget
+   npm install
+   npm run dev
+   ```
+
+### Option 2: Python Backend (Legacy)
 
 1. **Automated Setup** (Recommended):
    ```bash
