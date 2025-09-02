@@ -40,7 +40,6 @@ python main.py
 
 Backend runs at `http://localhost:8000`
 
-> ⚠️ **Security Note**: Never commit `.env` files to version control!
 
 ### 2. Frontend Setup
 

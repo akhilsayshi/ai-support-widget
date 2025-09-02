@@ -64,8 +64,13 @@ const ChatBubble = ({ message, config }) => {
           </div>
         )}
         
-        <div className="message-content">
-          {text}
+        <div 
+          className="message-content" 
+          style={config.theme === 'dark' && !isUser ? {color: '#f3f4f6'} : {}}
+        >
+          <span style={config.theme === 'dark' && !isUser ? {color: '#f3f4f6'} : {}}>
+            {text}
+          </span>
         </div>
         
         <div className="message-footer">
@@ -116,7 +121,7 @@ const ChatBubble = ({ message, config }) => {
 
         .bot-bubble {
           background: white;
-          color: #374151;
+          color: ${config.theme === 'dark' ? '#f3f4f6' : '#374151'};
           margin-right: 20px;
           border-bottom-left-radius: 8px;
           border: 1px solid #e5e7eb;
@@ -210,20 +215,36 @@ const ChatBubble = ({ message, config }) => {
 
         /* Dark theme adjustments */
         ${config.theme === 'dark' ? `
-          .bot-bubble {
-            background: #374151;
-            color: #f3f4f6;
-            border-color: #4b5563;
+          .message-wrapper.bot .bot-bubble {
+            background: #374151 !important;
+            color: #f3f4f6 !important;
+            border-color: #4b5563 !important;
           }
 
-          .bot-bubble.error {
-            background: #7f1d1d;
-            border-color: #991b1b;
-            color: #fecaca;
+          .message-wrapper.bot .bot-bubble.error {
+            background: #7f1d1d !important;
+            border-color: #991b1b !important;
+            color: #fecaca !important;
           }
 
-          .message-time {
-            color: #9ca3af;
+          .message-wrapper.bot .message-time {
+            color: #9ca3af !important;
+          }
+
+          /* Ensure premium features and other important text are light in dark mode */
+          .message-wrapper.bot .message-content,
+          .message-wrapper.bot .message-content *,
+          .message-wrapper.bot .message-content span,
+          .message-wrapper.bot span {
+            color: #f3f4f6 !important;
+          }
+
+          .message-wrapper.bot .message-header {
+            color: #d1d5db !important;
+          }
+
+          .message-wrapper.bot .message-type {
+            color: #d1d5db !important;
           }
         ` : ''}
 

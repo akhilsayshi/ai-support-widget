@@ -299,6 +299,13 @@ const ChatWindow = ({ config, onClose }) => {
           background: ${config.theme === 'dark' ? '#111827' : '#f9fafb'};
         }
 
+        /* Ensure all message content is light in dark mode */
+        ${config.theme === 'dark' ? `
+          .messages-container * {
+            color: #f3f4f6 !important;
+          }
+        ` : ''}
+
         .loading-message {
           display: flex;
           justify-content: flex-start;

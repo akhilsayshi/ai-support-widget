@@ -40,6 +40,30 @@
   --black: #F9FAFB;
 }
 
+/* Dark mode text styling for premium features and important content */
+.widget-container.dark .message-content,
+.widget-container.dark .premium-feature,
+.widget-container.dark .feature-text,
+.widget-container.dark p,
+.widget-container.dark span,
+.widget-container.dark div {
+  color: #f3f4f6 !important;
+}
+
+.widget-container.dark .message-content strong,
+.widget-container.dark .premium-feature strong,
+.widget-container.dark strong {
+  color: #f9fafb !important;
+}
+
+/* Specific targeting for bot messages in dark mode */
+[data-theme="dark"] .bot-bubble,
+[data-theme="dark"] .bot-bubble *,
+[data-theme="dark"] .message-content,
+[data-theme="dark"] .message-content * {
+  color: #f3f4f6 !important;
+}
+
 /* Reset and base styles */
 * {
   margin: 0;
