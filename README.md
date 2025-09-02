@@ -14,7 +14,7 @@ A modern, full-stack customer support widget with intelligent AI responses, buil
 ### Backend (Node.js + Express)
 - **REST API**: Comprehensive REST API with Express.js
 - **AI Integration**: OpenAI GPT integration for intelligent responses
-- **Database**: MongoDB with Mongoose ODM for conversation storage
+- **Database**: PostgreSQL with Sequelize ORM for conversation storage
 - **Security**: Rate limiting, CORS protection, input validation
 - **Logging**: Winston-based logging with file rotation
 - **Health Checks**: Kubernetes-ready health and readiness probes
@@ -31,8 +31,8 @@ A modern, full-stack customer support widget with intelligent AI responses, buil
 ### Backend
 - **Node.js 18+** - JavaScript runtime
 - **Express.js** - Web application framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - MongoDB object modeling
+- **PostgreSQL** - Relational database
+- **Sequelize** - PostgreSQL ORM
 - **OpenAI API** - AI language model integration
 - **Winston** - Logging library
 - **Docker** - Containerization

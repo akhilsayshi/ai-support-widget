@@ -1,5 +1,5 @@
 const express = require('express');
-const { connectDB } = require('../config/database');
+const { testConnection } = require('../config/database');
 const { logger } = require('../utils/logger');
 
 const router = express.Router();
@@ -41,11 +41,9 @@ router.get('/detailed', async (req, res) => {
     let dbResponseTime = null;
     
     try {
-      const dbStartTime = Date.now();
-      // This would test actual database connectivity
-      // For now, we'll simulate it
-      dbResponseTime = Date.now() - dbStartTime;
-      dbStatus = 'connected';
+      const dbTest = await testConnection();
+      dbStatus = dbTest.success ? 'connected' : 'error';
+      dbResponseTime = dbTest.responseTime ? parseInt(dbTest.responseTime) : null;
     } catch (dbError) {
       dbStatus = 'error';
       logger.error('Database health check failed:', dbError);
@@ -63,7 +61,8 @@ router.get('/detailed', async (req, res) => {
       services: {
         database: {
           status: dbStatus,
-          responseTime: dbResponseTime ? `${dbResponseTime}ms` : null
+          responseTime: dbResponseTime ? `${dbResponseTime}ms` : null,
+          type: 'PostgreSQL'
         },
         openai: {
           status: process.env.OPENAI_API_KEY ? 'configured' : 'not_configured'
@@ -99,7 +98,7 @@ router.get('/detailed', async (req, res) => {
 router.get('/ready', async (req, res) => {
   try {
     // Check if all required services are ready
-    const isReady = process.env.OPENAI_API_KEY && process.env.MONGODB_URI;
+    const isReady = process.env.OPENAI_API_KEY && process.env.DB_HOST;
     
     if (isReady) {
       res.status(200).json({
@@ -112,7 +111,7 @@ router.get('/ready', async (req, res) => {
         timestamp: new Date().toISOString(),
         missing: {
           openai: !process.env.OPENAI_API_KEY,
-          mongodb: !process.env.MONGODB_URI
+          postgresql: !process.env.DB_HOST
         }
       });
     }

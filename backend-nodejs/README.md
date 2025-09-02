@@ -1,12 +1,13 @@
 # AI Support Widget - Node.js Backend
 
-A robust Node.js backend service for the AI Support Widget, built with Express.js, MongoDB, and OpenAI integration.
+A robust Node.js backend service for the AI Support Widget, built with Express.js, PostgreSQL, and OpenAI integration.
 
 ## 🚀 Features
 
 - **Express.js REST API** - Fast, unopinionated web framework
 - **OpenAI Integration** - Intelligent AI responses using GPT models
-- **MongoDB Database** - Persistent conversation storage and analytics
+- **PostgreSQL Database** - Reliable relational database with Sequelize ORM
+- **Database Migrations** - Version-controlled database schema management
 - **Rate Limiting** - Protection against abuse and spam
 - **Comprehensive Logging** - Winston-based logging with file rotation
 - **Error Handling** - Centralized error handling and validation
@@ -18,7 +19,7 @@ A robust Node.js backend service for the AI Support Widget, built with Express.j
 
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
+- **Database**: PostgreSQL with Sequelize ORM
 - **AI Service**: OpenAI GPT API
 - **Logging**: Winston
 - **Security**: Helmet, CORS, Rate Limiting
@@ -29,7 +30,7 @@ A robust Node.js backend service for the AI Support Widget, built with Express.j
 
 - Node.js 18.0.0 or higher
 - npm 8.0.0 or higher
-- MongoDB (local or cloud instance)
+- PostgreSQL 12+ (local or cloud instance)
 - OpenAI API key
 
 ## 🚀 Quick Start
@@ -65,7 +66,11 @@ A robust Node.js backend service for the AI Support Widget, built with Express.j
 | `NODE_ENV` | Environment mode | `development` |
 | `PORT` | Server port | `3001` |
 | `OPENAI_API_KEY` | OpenAI API key | Required |
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/ai-support-widget` |
+| `DB_HOST` | PostgreSQL host | `localhost` |
+| `DB_PORT` | PostgreSQL port | `5432` |
+| `DB_NAME` | Database name | `ai_support_widget_dev` |
+| `DB_USER` | Database user | `postgres` |
+| `DB_PASSWORD` | Database password | `password` |
 | `FRONTEND_URL` | Frontend URL for CORS | `http://localhost:3000` |
 
 ### OpenAI Configuration
@@ -114,29 +119,37 @@ console.log(data.data.response); // AI response
 
 ## 🗄 Database Schema
 
-### Conversation Model
-```javascript
-{
-  sessionId: String,        // Unique session identifier
-  userMessage: String,      // User's message (max 1000 chars)
-  aiResponse: String,       // AI response (max 2000 chars)
-  timestamp: Date,          // Message timestamp
-  userIP: String,           // User's IP address
-  context: {                // Additional context
-    page: String,
-    userAgent: String,
-    referrer: String,
-    customData: Mixed
-  },
-  model: String,            // OpenAI model used
-  tokens: {                 // Token usage
-    prompt_tokens: Number,
-    completion_tokens: Number,
-    total_tokens: Number
-  },
-  rating: Number,           // User rating (1-5)
-  feedback: String          // User feedback (max 500 chars)
-}
+### Conversation Table
+```sql
+CREATE TABLE conversations (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  session_id UUID NOT NULL,
+  user_message TEXT NOT NULL,
+  ai_response TEXT NOT NULL,
+  user_ip INET NOT NULL,
+  context JSONB,
+  model VARCHAR(50) DEFAULT 'gpt-3.5-turbo',
+  tokens JSONB,
+  rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+  feedback TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Indexes for performance
+CREATE INDEX idx_conversations_session_created ON conversations(session_id, created_at);
+CREATE INDEX idx_conversations_created ON conversations(created_at);
+CREATE INDEX idx_conversations_user_ip_created ON conversations(user_ip, created_at);
+CREATE INDEX idx_conversations_rating ON conversations(rating);
+```
+
+### Database Migrations
+```bash
+# Run migrations
+npm run db:migrate
+
+# Reset database (development only)
+npm run db:reset
 ```
 
 ## 🧪 Testing
@@ -184,7 +197,12 @@ CMD ["npm", "start"]
 ```env
 NODE_ENV=production
 PORT=3001
-MONGODB_URI=mongodb://your-mongodb-uri
+DB_HOST=your-postgres-host
+DB_PORT=5432
+DB_NAME=ai_support_widget
+DB_USER=your-db-user
+DB_PASSWORD=your-db-password
+DB_SSL=true
 OPENAI_API_KEY=your-openai-key
 FRONTEND_URL=https://your-frontend-domain.com
 ```
@@ -199,10 +217,12 @@ FRONTEND_URL=https://your-frontend-domain.com
 
 ## 📈 Performance Features
 
-- **Connection Pooling**: MongoDB connection pooling
+- **Connection Pooling**: PostgreSQL connection pooling with Sequelize
 - **Compression**: Gzip compression for responses
 - **Caching**: Ready for Redis integration
-- **Database Indexing**: Optimized queries with proper indexes
+- **Database Indexing**: Optimized queries with proper PostgreSQL indexes
+- **JSONB Support**: Efficient JSON storage and querying
+- **Database Migrations**: Version-controlled schema changes
 
 ## 🤝 Contributing
 

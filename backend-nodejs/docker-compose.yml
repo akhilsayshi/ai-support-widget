@@ -9,49 +9,53 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3001
-      - MONGODB_URI=mongodb://mongodb:27017/ai-support-widget
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=ai_support_widget
+      - DB_USER=postgres
+      - DB_PASSWORD=password
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
     depends_on:
-      - mongodb
+      - postgres
     volumes:
       - ./logs:/app/logs
     restart: unless-stopped
     networks:
       - ai-widget-network
 
-  # MongoDB Database
-  mongodb:
-    image: mongo:7.0
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
     ports:
-      - "27017:27017"
+      - "5432:5432"
     environment:
-      - MONGO_INITDB_DATABASE=ai-support-widget
+      - POSTGRES_DB=ai_support_widget
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
     volumes:
-      - mongodb_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
     networks:
       - ai-widget-network
 
-  # MongoDB Express (Database Admin UI)
-  mongo-express:
-    image: mongo-express:1.0.0
+  # pgAdmin (Database Admin UI)
+  pgadmin:
+    image: dpage/pgadmin4:latest
     ports:
-      - "8081:8081"
+      - "8081:80"
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_MONGODB_PORT=27017
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=password
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=password
     depends_on:
-      - mongodb
+      - postgres
     restart: unless-stopped
     networks:
       - ai-widget-network
 
 volumes:
-  mongodb_data:
+  postgres_data:
 
 networks:
   ai-widget-network:
