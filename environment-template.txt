@@ -1,0 +1,30 @@
+# AI Support Widget Environment Variables
+# Copy this content to a file named .env in the ai-support-widget folder
+
+# OpenAI Configuration (for RAG system - Phase 2)
+OPENAI_API_KEY=sk-your_openai_api_key_here
+
+# Pinecone Configuration (for vector search - Phase 2)
+PINECONE_API_KEY=your_pinecone_api_key_here
+PINECONE_ENVIRONMENT=us-west1-gcp
+PINECONE_INDEX_NAME=support-knowledge
+
+# API Security (optional - for production)
+# WIDGET_API_SECRET=your_random_secret_here
+
+# Redis Configuration (for rate limiting - optional)
+# REDIS_URL=redis://localhost:6379
+
+# Application Settings
+ENVIRONMENT=development
+LOG_LEVEL=INFO
+PORT=8000
+
+# CORS Settings (comma-separated domains for production)
+# ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+
+# Database (if adding persistence later)
+# DATABASE_URL=postgresql://user:password@localhost:5432/ai_support
+
+# Monitoring (optional)
+# SENTRY_DSN=your_sentry_dsn_here

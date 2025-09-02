@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Support Widget - Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Support Widget - Test Page</h1>
+        
+        <div class="status">
+            <strong>Status:</strong> Testing connection to backend API at <code>http://localhost:8000</code>
+        </div>
+
+        <h2>🧪 API Tests</h2>
+        <button class="test-button" onclick="testHealth()">Test Health Endpoint</button>
+        <button class="test-button" onclick="testChat()">Test Chat Endpoint</button>
+        <button class="test-button" onclick="testChatWithQuestion()">Test FAQ Question</button>
+
+        <div id="result"></div>
+
+        <h2>💬 Widget Test</h2>
+        <p>The chat widget should appear in the bottom-right corner of this page.</p>
+        <p>Click on it to start a conversation!</p>
+
+        <h3>📝 Try these test questions:</h3>
+        <div style="margin: 20px 0;">
+            <button onclick="askQuestionInWidget('What are your pricing plans?')" class="test-button">Ask about pricing</button>
+            <button onclick="askQuestionInWidget('How do I integrate this widget?')" class="test-button">Ask about integration</button>
+            <button onclick="askQuestionInWidget('Do you offer support?')" class="test-button">Ask about support</button>
+            <button onclick="askQuestionInWidget('What features do you have?')" class="test-button">Ask about features</button>
+        </div>
+        
+        <h4>Or manually type these questions in the widget:</h4>
+        <ul>
+            <li>"What are your pricing plans?"</li>
+            <li>"How do I integrate this widget?"</li>
+            <li>"Do you offer support?"</li>
+            <li>"What features do you have?"</li>
+        </ul>
+    </div>
+
+    <!-- AI Support Widget Embed -->
+    <script src="widget/public/embed.js" data-widget-config='{
+        "apiUrl": "http://localhost:8000",
+        "theme": "light",
+        "primaryColor": "#007bff",
+        "position": "bottom-right",
+        "greetingMessage": "Hi! I'm your AI support assistant. How can I help you today?",
+        "placeholderText": "Ask me anything...",
+        "showAvatar": true,
+        "title": "AI Support"
+    }'></script>
+
+    <script>
+        async function testHealth() {
+            const result = document.getElementById('result');
+            try {
+                result.textContent = 'Testing health endpoint...';
+                const response = await fetch('http://localhost:8000/health');
+                const data = await response.json();
+                result.textContent = `✅ Health Check Success!\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.textContent = `❌ Health Check Failed!\n\nError: ${error.message}\n\nMake sure the backend server is running:\ncd ai-support-widget/backend\npython main.py`;
+            }
+        }
+
+        async function testChat() {
+            const result = document.getElementById('result');
+            try {
+                result.textContent = 'Testing chat endpoint...';
+                const response = await fetch('http://localhost:8000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: 'Hello, this is a test message',
+                        session_id: 'test_session_123'
+                    })
+                });
+                const data = await response.json();
+                result.textContent = `✅ Chat Test Success!\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.textContent = `❌ Chat Test Failed!\n\nError: ${error.message}\n\nMake sure the backend server is running.`;
+            }
+        }
+
+        async function testChatWithQuestion() {
+            const result = document.getElementById('result');
+            try {
+                result.textContent = 'Testing FAQ question...';
+                const response = await fetch('http://localhost:8000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: 'What are your pricing plans?',
+                        session_id: 'test_session_faq'
+                    })
+                });
+                const data = await response.json();
+                result.textContent = `✅ FAQ Test Success!\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.textContent = `❌ FAQ Test Failed!\n\nError: ${error.message}`;
+            }
+        }
+
+        // Function to ask questions in widget
+        function askQuestionInWidget(question) {
+            if (window.AISupportWidget) {
+                window.AISupportWidget.open();
+                setTimeout(() => {
+                    window.AISupportWidget.sendMessage(question);
+                }, 500);
+            } else {
+                alert('Widget is loading... Please try again in a moment.');
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testHealth, 1000);
+        });
+    </script>
+</body>
+</html>

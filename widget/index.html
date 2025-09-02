@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Support Widget</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .cta {
+            margin: 3rem 0;
+        }
+        .button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .demo-section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            text-align: left;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🤖</div>
+        <h1 class="title">AI Support Widget</h1>
+        <p class="subtitle">Intelligent customer support that integrates seamlessly into any website</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">💬</div>
+                <h3>Smart Conversations</h3>
+                <p>AI-powered responses that understand context and provide helpful answers</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Customizable Design</h3>
+                <p>Match your brand with customizable themes, colors, and positioning</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Easy Integration</h3>
+                <p>Add to any website with just a single script tag - no complex setup required</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics Ready</h3>
+                <p>Track conversations and user interactions to improve your support</p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Quick Integration</h2>
+            <p>Add this widget to your website in seconds:</p>
+            <div class="code-block">
+&lt;script src="https://your-domain.vercel.app/embed.js" data-widget-config='{
+    "apiUrl": "https://your-backend-api.com",
+    "theme": "light",
+    "primaryColor": "#007bff",
+    "position": "bottom-right",
+    "greetingMessage": "Hi! How can I help you today?"
+}'&gt;&lt;/script&gt;
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="https://github.com/akhilsayshi/ai-support-widget" class="button">📖 Documentation</a>
+            <a href="https://github.com/akhilsayshi/ai-support-widget" class="button">⭐ GitHub</a>
+        </div>
+
+        <p style="margin-top: 3rem; opacity: 0.7; font-size: 0.9rem;">
+            Built with React, FastAPI, and modern web technologies
+        </p>
+    </div>
+
+    <!-- Demo Widget -->
+    <div id="widget-container"></div>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
