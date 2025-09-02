@@ -11,14 +11,63 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --border-color: #334155;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background: #0a0a0a;
-            color: #ffffff;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-primary);
         }
 
         .hero {
@@ -27,18 +76,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
-            z-index: -1;
+            background: var(--bg-primary);
+            padding: 2rem 0;
         }
 
         .container {
@@ -49,32 +88,28 @@
         }
 
         .logo {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 16px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 12px;
             margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+            box-shadow: var(--shadow-lg);
         }
 
         .title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 1.25rem;
-            color: #a1a1aa;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
             margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
@@ -102,106 +137,104 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: white;
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+            box-shadow: var(--shadow);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--border-color);
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
             margin: 4rem 0;
         }
 
         .feature {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 2rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
         }
 
         .feature:hover {
-            transform: translateY(-4px);
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
         }
 
         .feature-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.5rem;
-            font-size: 20px;
         }
 
         .feature h3 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
         .feature p {
-            color: #a1a1aa;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
         .demo-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 3rem;
             margin: 4rem 0;
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
         }
 
         .demo-section h2 {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
         .demo-section p {
-            color: #a1a1aa;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
         }
 
         .code-block {
-            background: #111111;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
             font-size: 0.875rem;
-            color: #e4e4e7;
+            color: var(--text-primary);
             text-align: left;
             overflow-x: auto;
             position: relative;
+            box-shadow: var(--shadow);
         }
 
         .code-block::before {
@@ -211,7 +244,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
         }
 
         .demo-notice {
@@ -223,7 +256,6 @@
             border-radius: 12px;
             padding: 16px;
             margin: 2rem 0;
-            backdrop-filter: blur(10px);
         }
 
         .notice-icon {
@@ -234,7 +266,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #3b82f6;
+            color: var(--accent-primary);
             flex-shrink: 0;
         }
 
@@ -243,14 +275,14 @@
         }
 
         .notice-content strong {
-            color: #3b82f6;
+            color: var(--accent-primary);
             font-weight: 600;
             display: block;
             margin-bottom: 4px;
         }
 
         .notice-content p {
-            color: #6b7280;
+            color: var(--text-secondary);
             font-size: 0.875rem;
             line-height: 1.5;
             margin: 0;
@@ -259,22 +291,9 @@
         .footer {
             margin-top: 4rem;
             padding: 2rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #71717a;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
             font-size: 0.875rem;
-        }
-
-        .grid-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
         }
 
         @media (max-width: 768px) {
@@ -298,8 +317,13 @@
     </style>
 </head>
 <body>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
     <div class="hero">
-        <div class="grid-pattern"></div>
         <div class="container">
             <div class="logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -324,8 +348,18 @@
                             <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>Smart Conversations</h3>
-                    <p>AI-powered responses that understand context and provide helpful answers to your customers instantly.</p>
+                    <h3>Intelligent</h3>
+                    <p>Advanced AI-powered responses that understand context, learn from interactions, and provide accurate, helpful answers to customer inquiries with natural language processing.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for speed with instant responses, minimal loading times, and efficient resource usage. Built with modern web technologies for maximum performance.</p>
                 </div>
                 
                 <div class="feature">
@@ -336,18 +370,18 @@
                             <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>Customizable Design</h3>
-                    <p>Match your brand with customizable themes, colors, and positioning that feels native to your site.</p>
+                    <h3>Seamlessly Integrated</h3>
+                    <p>One-line integration that blends perfectly with your existing website design. Customizable themes, colors, and positioning that feels native to your brand.</p>
                 </div>
                 
                 <div class="feature">
                     <div class="feature-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 22S2 16 2 10V4L12 2L22 4V10C22 16 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>Easy Integration</h3>
-                    <p>Add to any website with just a single script tag. No complex setup or configuration required.</p>
+                    <h3>Secure & Reliable</h3>
+                    <p>Enterprise-grade security with encrypted communications, data privacy compliance, and 99.9% uptime guarantee. Your customer data is always protected.</p>
                 </div>
                 
                 <div class="feature">
@@ -358,8 +392,20 @@
                             <path d="M6 20V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3>Analytics Ready</h3>
-                    <p>Track conversations and user interactions to improve your support and understand customer needs.</p>
+                    <h3>Analytics Driven</h3>
+                    <p>Comprehensive insights and analytics to track conversation patterns, customer satisfaction, response times, and engagement metrics for continuous improvement.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Scalable Architecture</h3>
+                    <p>Built to handle everything from small businesses to enterprise-level traffic. Auto-scaling infrastructure ensures consistent performance as your business grows.</p>
                 </div>
             </div>
             
@@ -399,5 +445,37 @@
     <!-- Demo Widget -->
     <div id="widget-container"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.innerHTML = '<path d="M12 3V1M12 21V23M4.22 4.22L2.81 2.81M19.78 19.78L21.19 21.19M3 12H1M21 12H23M4.22 19.78L2.81 21.19M19.78 4.22L21.19 2.81M12 5.5A6.5 6.5 0 1 0 18.5 12A6.5 6.5 0 0 0 12 5.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            body.setAttribute('data-theme', savedTheme);
+            
+            if (savedTheme === 'dark') {
+                themeIcon.innerHTML = '<path d="M12 3V1M12 21V23M4.22 4.22L2.81 2.81M19.78 19.78L21.19 21.19M3 12H1M21 12H23M4.22 19.78L2.81 21.19M19.78 4.22L21.19 2.81M12 5.5A6.5 6.5 0 1 0 18.5 12A6.5 6.5 0 0 0 12 5.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+            }
+        });
+    </script>
 </body>
 </html>
