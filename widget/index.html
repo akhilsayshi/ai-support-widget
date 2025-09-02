@@ -52,32 +52,41 @@
 
         .theme-toggle {
             position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 2rem;
+            right: 2rem;
             z-index: 1000;
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 50%;
             cursor: pointer;
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .theme-toggle:hover {
             box-shadow: var(--shadow-lg);
-            transform: scale(1.05);
+            transform: translateY(-1px);
+            border-color: var(--accent-primary);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow);
         }
 
         .theme-toggle svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             color: var(--text-primary);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            stroke-width: 1.5;
         }
 
         .hero {
@@ -309,6 +318,18 @@
         @media (max-width: 768px) {
             .container {
                 padding: 0 1rem;
+            }
+            
+            .theme-toggle {
+                top: 1.5rem;
+                right: 1.5rem;
+                width: 44px;
+                height: 44px;
+            }
+            
+            .theme-toggle svg {
+                width: 20px;
+                height: 20px;
             }
             
             .cta-buttons {
