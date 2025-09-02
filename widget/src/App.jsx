@@ -116,26 +116,6 @@ const App = () => {
 
   return (
     <div className={`widget-container ${isDarkMode ? 'dark' : ''}`}>
-      {/* Dark Mode Toggle Button */}
-      <button
-        onClick={toggleDarkMode}
-        className="dark-mode-toggle top-4 right-4"
-        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-        title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-      >
-        {isDarkMode ? (
-          // Sun icon for light mode
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
-            <path d="M12 1v2m0 18v2m11-11h-2M4 12H2m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l-1.414-1.414M6.05 6.05L4.636 4.636" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        ) : (
-          // Moon icon for dark mode
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        )}
-      </button>
 
       {/* Chat Button */}
       <button
