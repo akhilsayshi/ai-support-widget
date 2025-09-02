@@ -37,19 +37,22 @@
                 position: fixed;
                 ${config.position.includes('right') ? 'right: 20px;' : 'left: 20px;'}
                 ${config.position.includes('bottom') ? 'bottom: 20px;' : 'top: 20px;'}
-                width: 60px;
-                height: 60px;
-                background: ${config.primaryColor};
-                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                background: linear-gradient(135deg, ${config.primaryColor}, #8b5cf6);
+                border-radius: 16px;
                 cursor: pointer;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 9999;
-                transition: all 0.3s ease;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                border: 1px solid rgba(255, 255, 255, 0.1);
             ">
-                <span style="color: white; font-size: 24px;">💬</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: white;">
+                    <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
             <div id="widget-window" style="
                 position: fixed;
@@ -57,21 +60,24 @@
                 ${config.position.includes('bottom') ? 'bottom: 90px;' : 'top: 90px;'}
                 width: ${config.width};
                 height: ${config.height};
-                background: white;
-                border-radius: 12px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.1);
                 display: none;
                 z-index: 9998;
                 flex-direction: column;
                 overflow: hidden;
             ">
                 <div style="
-                    background: ${config.primaryColor};
+                    background: linear-gradient(135deg, ${config.primaryColor}, #8b5cf6);
                     color: white;
-                    padding: 16px;
+                    padding: 20px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    border-radius: 20px 20px 0 0;
                 ">
                     <span style="font-weight: 600;">${config.title}</span>
                     <button id="widget-close" style="
@@ -91,46 +97,57 @@
                 <div id="widget-messages" style="
                     flex: 1;
                     overflow-y: auto;
-                    padding: 16px;
-                    background: #f8f9fa;
+                    padding: 20px;
+                    background: rgba(248, 250, 252, 0.8);
+                    backdrop-filter: blur(10px);
                 ">
                     <div style="
-                        background: white;
-                        padding: 12px;
-                        border-radius: 8px;
-                        margin-bottom: 12px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        background: rgba(255, 255, 255, 0.9);
+                        backdrop-filter: blur(10px);
+                        padding: 16px;
+                        border-radius: 16px;
+                        margin-bottom: 16px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
                     ">
                         ${config.greetingMessage}
                     </div>
                 </div>
                 <div style="
-                    padding: 16px;
-                    border-top: 1px solid #e9ecef;
-                    background: white;
+                    padding: 20px;
+                    border-top: 1px solid rgba(0,0,0,0.05);
+                    background: rgba(255, 255, 255, 0.9);
+                    backdrop-filter: blur(10px);
+                    border-radius: 0 0 20px 20px;
                 ">
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 12px;">
                         <input 
                             id="widget-input" 
                             type="text" 
                             placeholder="${config.placeholderText}"
                             style="
                                 flex: 1;
-                                padding: 10px;
-                                border: 1px solid #ddd;
-                                border-radius: 6px;
+                                padding: 12px 16px;
+                                border: 1px solid rgba(0,0,0,0.1);
+                                border-radius: 12px;
                                 outline: none;
                                 font-size: 14px;
+                                background: rgba(255, 255, 255, 0.8);
+                                backdrop-filter: blur(10px);
+                                transition: all 0.2s ease;
                             "
                         />
                         <button id="widget-send" style="
-                            background: ${config.primaryColor};
+                            background: linear-gradient(135deg, ${config.primaryColor}, #8b5cf6);
                             color: white;
                             border: none;
-                            padding: 10px 16px;
-                            border-radius: 6px;
+                            padding: 12px 20px;
+                            border-radius: 12px;
                             cursor: pointer;
                             font-size: 14px;
+                            font-weight: 600;
+                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+                            transition: all 0.2s ease;
                         ">Send</button>
                     </div>
                 </div>
@@ -146,15 +163,18 @@
         const messagesContainer = document.getElementById('widget-messages');
         const messageDiv = document.createElement('div');
         messageDiv.style.cssText = `
-            background: ${isUser ? config.primaryColor : 'white'};
-            color: ${isUser ? 'white' : '#333'};
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            background: ${isUser ? `linear-gradient(135deg, ${config.primaryColor}, #8b5cf6)` : 'rgba(255, 255, 255, 0.9)'};
+            backdrop-filter: blur(10px);
+            color: ${isUser ? 'white' : '#1f2937'};
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 16px;
             max-width: 80%;
             ${isUser ? 'margin-left: auto;' : ''}
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             word-wrap: break-word;
+            font-weight: 500;
         `;
         messageDiv.textContent = content;
         messagesContainer.appendChild(messageDiv);
