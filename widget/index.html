@@ -43,31 +43,41 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        * {
+            transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
         }
 
         .theme-toggle {
             position: fixed;
-            top: 2rem;
-            right: 2rem;
+            top: 1.5rem;
+            right: 1.5rem;
             z-index: 1000;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 8px;
+            padding: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
             box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
         }
 
         .theme-toggle:hover {
             box-shadow: var(--shadow-lg);
+            transform: scale(1.05);
         }
 
         .theme-toggle svg {
             width: 20px;
             height: 20px;
             color: var(--text-primary);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .hero {
@@ -453,15 +463,21 @@
             const themeIcon = document.getElementById('theme-icon');
             const currentTheme = body.getAttribute('data-theme');
             
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeIcon.innerHTML = '<path d="M12 3V1M12 21V23M4.22 4.22L2.81 2.81M19.78 19.78L21.19 21.19M3 12H1M21 12H23M4.22 19.78L2.81 21.19M19.78 4.22L21.19 2.81M12 5.5A6.5 6.5 0 1 0 18.5 12A6.5 6.5 0 0 0 12 5.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-                localStorage.setItem('theme', 'dark');
-            }
+            // Smooth icon transition
+            themeIcon.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                if (currentTheme === 'dark') {
+                    body.setAttribute('data-theme', 'light');
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeIcon.innerHTML = '<path d="M12 3V1M12 21V23M4.22 4.22L2.81 2.81M19.78 19.78L21.19 21.19M3 12H1M21 12H23M4.22 19.78L2.81 21.19M19.78 4.22L21.19 2.81M12 5.5A6.5 6.5 0 1 0 18.5 12A6.5 6.5 0 0 0 12 5.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+                    localStorage.setItem('theme', 'dark');
+                }
+                themeIcon.style.opacity = '1';
+            }, 150);
         }
         
         // Initialize theme on page load
